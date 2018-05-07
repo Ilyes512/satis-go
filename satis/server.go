@@ -1,20 +1,22 @@
 package satis
 
 import (
+	"log"
+	"net/http"
+	"os"
+
 	"github.com/benschw/satis-go/satis/satisphp"
 	"github.com/benschw/satis-go/satis/satisphp/db"
 	"github.com/benschw/satis-go/satis/satisphp/job"
 	"github.com/gorilla/mux"
-	"log"
-	"net/http"
-	"os"
 )
 
 var _ = log.Printf
 
+// Server struct used by satis-go
 type Server struct {
 	DbPath       string
-	AdminUiPath  string
+	AdminUIPath  string
 	WebPath      string
 	Bind         string
 	Name         string
@@ -23,6 +25,7 @@ type Server struct {
 	jobClient    satisphp.SatisClient
 }
 
+// Run the satis-go server
 func (s *Server) Run() error {
 	// sync config to db
 	if err := s.initDb(); err != nil {
@@ -71,7 +74,7 @@ func (s *Server) Run() error {
 	// r.PathPrefix("/dist/").Handler(http.StripPrefix("/dist/", http.FileServer(http.Dir("./dist"))))
 
 	http.Handle("/", r)
-	http.Handle("/admin/", http.StripPrefix("/admin/", http.FileServer(http.Dir(s.AdminUiPath))))
+	http.Handle("/admin/", http.StripPrefix("/admin/", http.FileServer(http.Dir(s.AdminUIPath))))
 
 	// Start update processor
 	go s.jobProcessor.ProcessUpdates()

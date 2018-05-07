@@ -4,18 +4,20 @@ import (
 	"errors"
 	"flag"
 	"fmt"
-	"github.com/benschw/satis-go/satis"
-	"gopkg.in/yaml.v2"
 	"io/ioutil"
 	"log"
 	"os"
+
+	"github.com/benschw/satis-go/satis"
+	"gopkg.in/yaml.v2"
 )
 
+// Config struct used by satis-go
 type Config struct {
 	Dbpath      string
 	Bind        string
-	RepoUiPath  string
-	AdminUiPath string
+	RepoUIPath  string
+	AdminUIPath string
 	Reponame    string
 	Repohost    string
 }
@@ -37,10 +39,7 @@ func getConfig(path string) (Config, error) {
 }
 
 func main() {
-	// Get Arguments
-	var cfgPath string
-
-	flag.StringVar(&cfgPath, "config", "/opt/satis-go/config.yaml", "Path to Config File")
+	cfgPath := flag.String("config", "/opt/satis-go/config.yaml", "Path to Config File")
 
 	flag.Usage = func() {
 		fmt.Fprintf(os.Stderr, "Usage: %s [arguments] \n", os.Args[0])
@@ -50,7 +49,7 @@ func main() {
 	flag.Parse()
 
 	// Load Config
-	cfg, err := getConfig(cfgPath)
+	cfg, err := getConfig(*cfgPath)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -63,16 +62,17 @@ func main() {
 	// Configure Server
 	s := &satis.Server{
 		DbPath:      cfg.Dbpath,
-		AdminUiPath: cfg.AdminUiPath,
-		WebPath:     cfg.RepoUiPath,
+		AdminUIPath: cfg.AdminUIPath,
+		WebPath:     cfg.RepoUIPath,
 		Bind:        cfg.Bind,
 		Name:        cfg.Reponame,
 		Homepage:    cfg.Repohost,
 	}
 
+	log.Println("Satis is starting on " + cfg.Bind)
+
 	// Start Server
 	if err := s.Run(); err != nil {
 		log.Fatal(err)
 	}
-
 }
