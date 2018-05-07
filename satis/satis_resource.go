@@ -3,11 +3,12 @@ package satis
 import (
 	"encoding/json"
 	"fmt"
+	"log"
+	"net/http"
+
 	"github.com/benschw/satis-go/satis/satisphp"
 	"github.com/benschw/satis-go/satis/satisphp/api"
 	"github.com/gorilla/mux"
-	"log"
-	"net/http"
 )
 
 type SatisResource struct {
@@ -186,4 +187,10 @@ func (r *SatisResource) generateStaticWeb(res http.ResponseWriter, req *http.Req
 
 	res.WriteHeader(http.StatusCreated)
 	res.Header().Set("Content-Type", "application/json")
+}
+
+func (r *SatisResource) generateStaticWebNow() error {
+	log.Println("Generating Satis data...")
+
+	return r.SatisPhpClient.GenerateSatisWeb()
 }

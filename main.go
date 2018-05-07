@@ -40,6 +40,7 @@ func getConfig(path string) (Config, error) {
 
 func main() {
 	cfgPath := flag.String("config", "/opt/satis-go/config.yaml", "Path to Config File")
+	generateSatisWeb := flag.Bool("generate", false, "Generate Satis Web")
 
 	flag.Usage = func() {
 		fmt.Fprintf(os.Stderr, "Usage: %s [arguments] \n", os.Args[0])
@@ -72,7 +73,7 @@ func main() {
 	log.Println("Satis is starting on " + cfg.Bind)
 
 	// Start Server
-	if err := s.Run(); err != nil {
+	if err := s.Run(*generateSatisWeb); err != nil {
 		log.Fatal(err)
 	}
 }

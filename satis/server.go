@@ -26,7 +26,7 @@ type Server struct {
 }
 
 // Run the satis-go server
-func (s *Server) Run() error {
+func (s *Server) Run(generate bool) error {
 	// sync config to db
 	if err := s.initDb(); err != nil {
 		return err
@@ -57,6 +57,13 @@ func (s *Server) Run() error {
 	resource := &SatisResource{
 		Host:           s.Homepage,
 		SatisPhpClient: jobClient,
+	}
+
+	if generate {
+		err := resource.generateStaticWebNow()
+		if err != nil {
+			return err
+		}
 	}
 
 	// Configure Routes
