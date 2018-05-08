@@ -190,7 +190,5 @@ func (r *SatisResource) generateStaticWeb(res http.ResponseWriter, req *http.Req
 }
 
 func (r *SatisResource) generateStaticWebNow() error {
-	log.Println("Generating Satis data...")
-
 	return r.SatisPhpClient.GenerateSatisWeb()
 }
