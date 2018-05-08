@@ -59,13 +59,6 @@ func (s *Server) Run(generate bool) error {
 		SatisPhpClient: jobClient,
 	}
 
-	if generate {
-		err := resource.generateStaticWebNow()
-		if err != nil {
-			return err
-		}
-	}
-
 	// Configure Routes
 	r := mux.NewRouter()
 
@@ -85,6 +78,13 @@ func (s *Server) Run(generate bool) error {
 
 	// Start update processor
 	go s.jobProcessor.ProcessUpdates()
+
+	if generate {
+		err := resource.generateStaticWebNow()
+		if err != nil {
+			return err
+		}
+	}
 
 	// Start HTTP Server
 	return http.ListenAndServe(s.Bind, nil)
