@@ -2,12 +2,10 @@ package satisphp
 
 import (
 	"errors"
+
 	"github.com/benschw/satis-go/satis/satisphp/api"
 	"github.com/benschw/satis-go/satis/satisphp/job"
-	"log"
 )
-
-var _ = log.Print
 
 var ErrRepoNotFound = errors.New("Repository Not Found")
 
@@ -26,7 +24,7 @@ func (s *SatisClient) FindRepo(id string) (api.Repo, error) {
 
 	found := false
 	for _, r := range repos {
-		if r.Id == id {
+		if r.ID == id {
 			found = true
 			repo = r
 		}
@@ -46,7 +44,7 @@ func (s *SatisClient) FindAllRepos() ([]api.Repo, error) {
 
 	rs := make([]api.Repo, len(repos), len(repos))
 	for i, repo := range repos {
-		rs[i] = *api.NewRepo(repo.Type, repo.Url)
+		rs[i] = *api.NewRepo(repo.Type, repo.URL)
 	}
 
 	return rs, err
@@ -55,7 +53,7 @@ func (s *SatisClient) FindAllRepos() ([]api.Repo, error) {
 func (s *SatisClient) SaveRepo(repo *api.Repo, generate bool) error {
 	// repoEntity := db.SatisRepository{
 	// 	Type: repo.Type,
-	// 	Url:  repo.Url,
+	// 	URL:  repo.URL,
 	// }
 	j := job.NewSaveRepoJob(s.DbPath, *repo)
 	if err := s.performJob(j); err != nil {
@@ -78,14 +76,14 @@ func (s *SatisClient) DeleteRepo(id string, generate bool) error {
 
 	found := false
 	for _, r := range repos {
-		if r.Id == id {
+		if r.ID == id {
 			found = true
 			toDelete = r
 		}
 	}
 
 	if found {
-		j := job.NewDeleteRepoJob(s.DbPath, toDelete.Url)
+		j := job.NewDeleteRepoJob(s.DbPath, toDelete.URL)
 		if err = s.performJob(j); err != nil {
 			switch err {
 			case job.ErrRepoNotFound:

@@ -1,12 +1,11 @@
 package satisphp
 
 import (
+	"log"
+
 	"github.com/benschw/satis-go/satis/satisphp/db"
 	"github.com/benschw/satis-go/satis/satisphp/job"
-	"log"
 )
-
-var _ = log.Printf
 
 type SatisJobProcessor struct {
 	DbPath    string

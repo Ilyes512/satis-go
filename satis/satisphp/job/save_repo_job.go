@@ -41,11 +41,11 @@ func (j SaveRepoJob) Run() error {
 	return nil
 }
 func (j SaveRepoJob) doSave(repo api.Repo, repos []db.SatisRepository) ([]db.SatisRepository, error) {
-	repoEntity := db.SatisRepository{Type: repo.Type, Url: repo.Url}
+	repoEntity := db.SatisRepository{Type: repo.Type, URL: repo.URL}
 	found := false
 	for i, r := range repos {
-		tmp := api.NewRepo(r.Type, r.Url)
-		if tmp.Id == repo.Id {
+		tmp := api.NewRepo(r.Type, r.URL)
+		if tmp.ID == repo.ID {
 			repos[i] = repoEntity
 			found = true
 		}

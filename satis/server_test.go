@@ -2,10 +2,6 @@ package satis
 
 import (
 	"fmt"
-	"github.com/benschw/satis-go/satis/client"
-	"github.com/benschw/satis-go/satis/satisphp/api"
-	"github.com/benschw/satis-go/satis/satisphp/db"
-	. "gopkg.in/check.v1"
 	"log"
 	"net"
 	"os"
@@ -13,10 +9,12 @@ import (
 	"strings"
 	"testing"
 	"time"
-)
 
-var _ = fmt.Print
-var _ = log.Print
+	"github.com/benschw/satis-go/satis/client"
+	"github.com/benschw/satis-go/satis/satisphp/api"
+	"github.com/benschw/satis-go/satis/satisphp/db"
+	. "gopkg.in/check.v1"
+)
 
 func Test(t *testing.T) { TestingT(t) }
 
@@ -84,7 +82,7 @@ func (s *MySuite) TestSaveRepo(c *C) {
 	// then
 	c.Assert(err, Equals, nil)
 
-	found, _ := client.FindRepo(repo.Id)
+	found, _ := client.FindRepo(repo.ID)
 	c.Assert(saved, DeepEquals, found)
 }
 func (s *MySuite) TestSaveRepoNotFound(c *C) {
@@ -109,7 +107,7 @@ func (s *MySuite) TestFindRepo(c *C) {
 	created, _ := client.AddRepo(repo)
 
 	// when
-	found, err := client.FindRepo(created.Id)
+	found, err := client.FindRepo(created.ID)
 
 	// then
 	c.Assert(err, Equals, nil)
@@ -141,7 +139,7 @@ func (s *MySuite) TestDeleteRepo(c *C) {
 	created, _ := client.AddRepo(repo)
 
 	// when
-	err := client.DeleteRepo(created.Id)
+	err := client.DeleteRepo(created.ID)
 
 	// then
 	c.Assert(err, Equals, nil)
@@ -156,7 +154,7 @@ func (s *MySuite) TestDeleteRepoNotFound(c *C) {
 	repo := api.NewRepo("vcs", "http://foo.bar")
 
 	// when
-	err := client.DeleteRepo(repo.Id)
+	err := client.DeleteRepo(repo.ID)
 
 	// then
 	c.Assert(err, Not(Equals), nil) // NotFound error
@@ -168,6 +166,9 @@ func (s *MySuite) TestGenerateWeb(c *C) {
 
 	// when
 	err := client.GenerateStaticWeb()
+
+	// Todo Fix the race condition
+	time.Sleep(500 * time.Millisecond)
 
 	// then
 	c.Assert(err, Equals, nil)

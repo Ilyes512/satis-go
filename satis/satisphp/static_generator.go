@@ -7,8 +7,6 @@ import (
 	"github.com/benschw/satis-go/satis/satisphp/db"
 )
 
-var _ = log.Print
-
 type Generator interface {
 	Generate() error
 }

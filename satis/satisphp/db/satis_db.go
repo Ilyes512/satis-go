@@ -24,7 +24,7 @@ type SatisDb struct {
 
 type SatisRepository struct {
 	Type string `json:"type"`
-	Url  string `json:"url"`
+	URL  string `json:"url"`
 }
 
 type SatisArchive struct {

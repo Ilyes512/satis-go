@@ -1,7 +1,6 @@
 package satis
 
 import (
-	"log"
 	"net/http"
 	"os"
 
@@ -10,8 +9,6 @@ import (
 	"github.com/benschw/satis-go/satis/satisphp/job"
 	"github.com/gorilla/mux"
 )
-
-var _ = log.Printf
 
 // Server struct used by satis-go
 type Server struct {
@@ -70,7 +67,7 @@ func (s *Server) Run(generate bool) error {
 	r.HandleFunc("/api/generate-web-job", resource.generateStaticWeb).Methods("POST")
 	r.PathPrefix("/").Handler(http.FileServer(http.Dir(s.WebPath)))
 
-	//	r.Handle("/dist/{rest}", http.StripPrefix("/dist/", http.FileServer(http.Dir("./dist/"))))
+	// r.Handle("/dist/{rest}", http.StripPrefix("/dist/", http.FileServer(http.Dir("./dist/"))))
 	// r.PathPrefix("/dist/").Handler(http.StripPrefix("/dist/", http.FileServer(http.Dir("./dist"))))
 
 	http.Handle("/", r)

@@ -1,19 +1,16 @@
 package satisphp
 
 import (
-	"fmt"
-	"github.com/benschw/satis-go/satis/satisphp/api"
-	"github.com/benschw/satis-go/satis/satisphp/db"
-	"github.com/benschw/satis-go/satis/satisphp/job"
 	"log"
 	"os"
 	"reflect"
 	"testing"
 	"time"
-)
 
-var _ = fmt.Print
-var _ = log.Print
+	"github.com/benschw/satis-go/satis/satisphp/api"
+	"github.com/benschw/satis-go/satis/satisphp/db"
+	"github.com/benschw/satis-go/satis/satisphp/job"
+)
 
 type StubGenerator struct {
 	runs int
@@ -130,7 +127,7 @@ func TestDelete(t *testing.T) {
 	c.SaveRepo(repo2, false)
 
 	// when
-	err := c.DeleteRepo(repo1.Id, false)
+	err := c.DeleteRepo(repo1.ID, false)
 
 	// then
 	if err != nil {
@@ -159,7 +156,7 @@ func TestDeleteAndGenerate(t *testing.T) {
 	c.SaveRepo(repo2, false)
 
 	// when
-	err := c.DeleteRepo(repo1.Id, true)
+	err := c.DeleteRepo(repo1.ID, true)
 
 	// then
 	if err != nil {

@@ -45,7 +45,7 @@ func (j DeleteRepoJob) doDelete(repo string, repos []db.SatisRepository) ([]db.S
 
 	rs := make([]db.SatisRepository, 0, len(repos))
 	for _, r := range repos {
-		if r.Url == repo {
+		if r.URL == repo {
 			found = true
 		} else {
 			rs = append(rs, r)

@@ -1,19 +1,17 @@
 package db
 
 import (
-	"fmt"
+	"encoding/json"
+	"io/ioutil"
 	"log"
 	"os"
 	"reflect"
 	"testing"
 )
 
-var _ = fmt.Print
-var _ = log.Print
+const dbPath = "/tmp/satis-test-data"
 
 func ARandomDbMgr() SatisDbManager {
-	dbPath := "/tmp/satis-test-data"
-
 	// Make Data Dir
 	if err := os.MkdirAll(dbPath, 0744); err != nil {
 		log.Fatalf("Unable to create path: %v", err)
@@ -24,11 +22,12 @@ func ARandomDbMgr() SatisDbManager {
 	mgr.Db.Homepage = "http://repo.com"
 	mgr.Db.RequireAll = true
 	mgr.Db.Repositories = []SatisRepository{
-		SatisRepository{Type: "vcs", Url: "http://package.com"},
+		SatisRepository{Type: "vcs", URL: "http://package.com"},
 	}
 
 	mgr.Path = dbPath
 	mgr.Write()
+	mgr.WriteStaging()
 
 	return mgr
 }

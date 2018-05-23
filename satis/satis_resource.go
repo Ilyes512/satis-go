@@ -26,9 +26,9 @@ func (r *SatisResource) addRepo(res http.ResponseWriter, req *http.Request) {
 		res.WriteHeader(http.StatusBadRequest)
 		return
 	}
-	repo := api.NewRepo(apiR.Type, apiR.Url)
+	repo := api.NewRepo(apiR.Type, apiR.URL)
 
-	if _, err := r.SatisPhpClient.FindRepo(repo.Id); err == nil || err != satisphp.ErrRepoNotFound {
+	if _, err := r.SatisPhpClient.FindRepo(repo.ID); err == nil || err != satisphp.ErrRepoNotFound {
 		res.WriteHeader(http.StatusConflict)
 		return
 	}
@@ -39,7 +39,7 @@ func (r *SatisResource) addRepo(res http.ResponseWriter, req *http.Request) {
 		res.WriteHeader(http.StatusInternalServerError)
 	}
 
-	res.Header().Set("Location", fmt.Sprintf("%s/api/repo/%d", r.Host, repo.Id))
+	res.Header().Set("Location", fmt.Sprintf("%s/api/repo/%s", r.Host, repo.ID))
 	res.Header().Set("Content-Type", "application/json")
 	res.WriteHeader(http.StatusCreated)
 	fmt.Fprint(res, body)
@@ -47,7 +47,7 @@ func (r *SatisResource) addRepo(res http.ResponseWriter, req *http.Request) {
 
 // Add repository in Satis Repo and regenerate static web docs
 func (r *SatisResource) saveRepo(res http.ResponseWriter, req *http.Request) {
-	repoId := mux.Vars(req)["id"]
+	repoID := mux.Vars(req)["id"]
 
 	repo := &api.Repo{}
 
@@ -59,12 +59,12 @@ func (r *SatisResource) saveRepo(res http.ResponseWriter, req *http.Request) {
 		return
 	}
 
-	if repo.Id != "" && repo.Id != repoId {
+	if repo.ID != "" && repo.ID != repoID {
 		res.WriteHeader(http.StatusBadRequest)
 		return
 	}
 
-	existing, err := r.SatisPhpClient.FindRepo(repoId)
+	existing, err := r.SatisPhpClient.FindRepo(repoID)
 	if err != nil {
 		switch err {
 		case satisphp.ErrRepoNotFound:
@@ -77,7 +77,7 @@ func (r *SatisResource) saveRepo(res http.ResponseWriter, req *http.Request) {
 	}
 
 	existing.Type = repo.Type
-	existing.Url = repo.Url
+	existing.URL = repo.URL
 
 	body, err := r.upsertRepo(&existing)
 	if err != nil {
@@ -97,7 +97,7 @@ func (r *SatisResource) upsertRepo(repo *api.Repo) (string, error) {
 	}
 
 	// marshal response
-	newRepo := api.NewRepo(repo.Type, repo.Url)
+	newRepo := api.NewRepo(repo.Type, repo.URL)
 	b, err := json.Marshal(newRepo)
 	if err != nil {
 		return "", err
@@ -107,9 +107,9 @@ func (r *SatisResource) upsertRepo(repo *api.Repo) (string, error) {
 
 // Get One Repo
 func (r *SatisResource) findRepo(res http.ResponseWriter, req *http.Request) {
-	repoId := mux.Vars(req)["id"]
+	repoID := mux.Vars(req)["id"]
 
-	repo, err := r.SatisPhpClient.FindRepo(repoId)
+	repo, err := r.SatisPhpClient.FindRepo(repoID)
 
 	if err != nil {
 		switch err {
@@ -159,9 +159,9 @@ func (r *SatisResource) findAllRepos(res http.ResponseWriter, req *http.Request)
 }
 
 func (r *SatisResource) deleteRepo(res http.ResponseWriter, req *http.Request) {
-	repoId := mux.Vars(req)["id"]
+	repoID := mux.Vars(req)["id"]
 
-	if err := r.SatisPhpClient.DeleteRepo(repoId, true); err != nil {
+	if err := r.SatisPhpClient.DeleteRepo(repoID, true); err != nil {
 		switch err {
 		case satisphp.ErrRepoNotFound:
 			res.WriteHeader(http.StatusNotFound)

@@ -1,12 +1,10 @@
 package client
 
 import (
-	"github.com/benschw/satis-go/satis/satisphp/api"
-	"log"
 	"net/http"
-)
 
-var _ = log.Print
+	"github.com/benschw/satis-go/satis/satisphp/api"
+)
 
 type SatisClient struct {
 	Host string
@@ -25,7 +23,7 @@ func (c *SatisClient) AddRepo(repo *api.Repo) (*api.Repo, error) {
 }
 func (c *SatisClient) SaveRepo(repo *api.Repo) (*api.Repo, error) {
 	r := &api.Repo{}
-	url := c.Host + "/api/repo/" + repo.Id
+	url := c.Host + "/api/repo/" + repo.ID
 
 	req, err := makeRequest("PUT", url, repo)
 	if err != nil {
