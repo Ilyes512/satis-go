@@ -5,20 +5,22 @@ import (
 	"hash/crc32"
 )
 
+// Repo struct contains the repository data
 type Repo struct {
-	Id   string `json:"id"`
+	ID   string `json:"id"`
 	Type string `json:"type"`
-	Url  string `json:"url"`
+	URL  string `json:"url"`
 }
 
-func NewRepo(t string, u string) *Repo {
+// NewRepo returns a new Repo struct
+func NewRepo(repoType string, url string) *Repo {
 	crc := crc32.NewIEEE()
-	crc.Write([]byte(u))
+	crc.Write([]byte(url))
 	v := crc.Sum32()
 
 	return &Repo{
-		Id:   fmt.Sprint(v),
-		Type: t,
-		Url:  u,
+		ID:   fmt.Sprint(v),
+		Type: repoType,
+		URL:  url,
 	}
 }

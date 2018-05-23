@@ -202,7 +202,7 @@ func ARandomServer() *Server {
 		Homepage: fmt.Sprintf("http://%s", host),
 	}
 
-	go s.Run()
+	go s.Run(false)
 	time.Sleep(100 * time.Millisecond)
 
 	return s
