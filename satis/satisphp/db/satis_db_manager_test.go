@@ -77,3 +77,37 @@ func TestDbWrite(t *testing.T) {
 		t.Errorf("config didn't persist changes when written: %s / %s", r.Db.Name, modifiedDb.Name)
 	}
 }
+
+func TestDbWriteStaging(t *testing.T) {
+	// given
+	r := ARandomDbMgr()
+	oldName := r.Db.Name
+	// when
+	r.Db.Name = "foo"
+	modifiedDb := r.Db
+
+	err := r.WriteStaging()
+
+	// then
+	if err != nil {
+		t.Error(err)
+	}
+
+	content, err := ioutil.ReadFile(dbPath + StagingFile)
+
+	if err != nil {
+		t.Error(err)
+	}
+
+	var c SatisDbManager
+	if err = json.Unmarshal(content, &c.Db); err != nil {
+		t.Error(err)
+	}
+
+	if oldName == r.Db.Name {
+		t.Errorf("staging config should have changed: %s / %s", oldName, r.Db.Name)
+	}
+	if !reflect.DeepEqual(r.Db, modifiedDb) {
+		t.Errorf("staging config didn't persist changes when written: %s / %s", r.Db.Name, modifiedDb.Name)
+	}
+}
