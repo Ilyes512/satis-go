@@ -17,8 +17,6 @@
             "args": [
                 "-config",
                 "config-local.yaml",
-                "-generate",
-                "false"
             ],
             "showLog": true
         }
