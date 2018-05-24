@@ -18,6 +18,8 @@ type Server struct {
 	Bind         string
 	Name         string
 	Homepage     string
+	Username     string
+	APIToken     string
 	jobProcessor satisphp.SatisJobProcessor
 	jobClient    satisphp.SatisClient
 }
@@ -54,6 +56,8 @@ func (s *Server) Run(generate bool) error {
 	resource := &SatisResource{
 		Host:           s.Homepage,
 		SatisPhpClient: jobClient,
+		Username:       s.Username,
+		APIToken:       s.APIToken,
 	}
 
 	// Configure Routes
@@ -65,6 +69,7 @@ func (s *Server) Run(generate bool) error {
 	r.HandleFunc("/api/repo", resource.findAllRepos).Methods("GET")
 	r.HandleFunc("/api/repo/{id}", resource.deleteRepo).Methods("DELETE")
 	r.HandleFunc("/api/generate-web-job", resource.generateStaticWeb).Methods("POST")
+	r.HandleFunc("/api/update-package", resource.updatePackage).Queries("username", "", "apiToken", "").Methods("POST")
 	r.PathPrefix("/").Handler(http.FileServer(http.Dir(s.WebPath)))
 
 	// r.Handle("/dist/{rest}", http.StripPrefix("/dist/", http.FileServer(http.Dir("./dist/"))))

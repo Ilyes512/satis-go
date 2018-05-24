@@ -4,3 +4,5 @@ repouipath: /opt/satis-go/repo-ui
 adminuipath: /opt/satis-go/admin-ui
 reponame: My Satis-go
 repohost: http://localhost:8080
+username: 
+apitoken: 

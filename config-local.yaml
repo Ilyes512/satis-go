@@ -4,3 +4,5 @@ repouipath: ./repo-ui
 adminuipath: ./admin-ui
 reponame: My Repository
 repohost: http://localhost:8080
+username: foobar
+apitoken: secret

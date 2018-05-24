@@ -20,6 +20,8 @@ type Config struct {
 	AdminUIPath string
 	Reponame    string
 	Repohost    string
+	Username    string
+	APIToken    string
 }
 
 func getConfig(path string) (Config, error) {
@@ -72,6 +74,8 @@ func main() {
 		Bind:        cfg.Bind,
 		Name:        cfg.Reponame,
 		Homepage:    cfg.Repohost,
+		Username:    cfg.Username,
+		APIToken:    cfg.APIToken,
 	}
 
 	log.Println("Satis is starting on " + cfg.Bind)

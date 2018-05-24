@@ -11,9 +11,12 @@ import (
 	"github.com/gorilla/mux"
 )
 
+// SatisResource struct
 type SatisResource struct {
 	Host           string
 	SatisPhpClient satisphp.SatisClient
+	Username       string
+	APIToken       string
 }
 
 // Add repository in Satis Repo and regenerate static web docs
@@ -191,4 +194,16 @@ func (r *SatisResource) generateStaticWeb(res http.ResponseWriter, req *http.Req
 
 func (r *SatisResource) generateStaticWebNow() error {
 	return r.SatisPhpClient.GenerateSatisWeb()
+}
+
+func (r *SatisResource) updatePackage(res http.ResponseWriter, req *http.Request) {
+	if r.Username != "" && r.APIToken != "" {
+		log.Print("Yup")
+		if req.URL.Query()["username"][0] != r.Username || req.URL.Query()["apiToken"][0] != r.APIToken {
+			res.WriteHeader(http.StatusUnauthorized)
+			return
+		}
+	}
+
+	r.generateStaticWeb(res, req)
 }
