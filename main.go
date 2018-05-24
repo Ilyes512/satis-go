@@ -25,6 +25,10 @@ type Config struct {
 func getConfig(path string) (Config, error) {
 	config := Config{}
 
+	if path == "" {
+		return config, errors.New("-config flag needs to be set")
+	}
+
 	if _, err := os.Stat(path); err != nil {
 		return config, errors.New("config path not valid")
 	}
@@ -39,7 +43,7 @@ func getConfig(path string) (Config, error) {
 }
 
 func main() {
-	cfgPath := flag.String("config", "/opt/satis-go/config.yaml", "Path to Config File")
+	cfgPath := flag.String("config", "", "Path to Config File")
 	generateSatisWeb := flag.Bool("generate", false, "Generate Satis Web")
 
 	flag.Usage = func() {
