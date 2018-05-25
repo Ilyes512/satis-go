@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"log"
 	"net/http"
-	"net/http/httputil"
 
 	"github.com/benschw/satis-go/satis/satisphp"
 	"github.com/benschw/satis-go/satis/satisphp/api"
@@ -198,15 +197,8 @@ func (r *SatisResource) generateStaticWebNow() error {
 }
 
 func (r *SatisResource) updatePackage(res http.ResponseWriter, req *http.Request) {
-	requestDump, err := httputil.DumpRequest(req, true)
-	if err != nil {
-		log.Print(err)
-	}
-	log.Print(string(requestDump))
-
 	if r.Username != "" && r.APIToken != "" {
 		if req.URL.Query()["username"][0] != r.Username || req.URL.Query()["apiToken"][0] != r.APIToken {
-			log.Print("Invalid username and/or apiToken!")
 			res.WriteHeader(http.StatusUnauthorized)
 			return
 		}
