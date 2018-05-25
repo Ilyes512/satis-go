@@ -204,6 +204,13 @@ func (r *SatisResource) updatePackage(res http.ResponseWriter, req *http.Request
 		}
 	}
 
-	r.generateStaticWeb(res, req)
+	if err := r.SatisPhpClient.GenerateSatisWeb(); err != nil {
+		log.Print(err)
+
+		res.WriteHeader(http.StatusInternalServerError)
+		return
+	}
+
 	res.WriteHeader(http.StatusAccepted)
+	res.Header().Set("Content-Type", "application/json")
 }
