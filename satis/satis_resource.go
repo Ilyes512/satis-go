@@ -198,7 +198,6 @@ func (r *SatisResource) generateStaticWebNow() error {
 
 func (r *SatisResource) updatePackage(res http.ResponseWriter, req *http.Request) {
 	if r.Username != "" && r.APIToken != "" {
-		log.Print("Yup")
 		if req.URL.Query()["username"][0] != r.Username || req.URL.Query()["apiToken"][0] != r.APIToken {
 			res.WriteHeader(http.StatusUnauthorized)
 			return
