@@ -205,4 +205,5 @@ func (r *SatisResource) updatePackage(res http.ResponseWriter, req *http.Request
 	}
 
 	r.generateStaticWeb(res, req)
+	res.WriteHeader(http.StatusAccepted)
 }
