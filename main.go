@@ -9,13 +9,13 @@ import (
 	"os"
 
 	"github.com/benschw/satis-go/satis"
-	"gopkg.in/yaml.v2"
+	yaml "gopkg.in/yaml.v2"
 )
 
 // Config struct used by satis-go
 type Config struct {
-	Dbpath      string
 	Bind        string
+	Dbpath      string
 	RepoUIPath  string
 	AdminUIPath string
 	Reponame    string
