@@ -2,9 +2,9 @@ package db
 
 type SatisDb struct {
 	Abandoned              map[string]string `json:"abandoned,omitempty"`
-	Archive                SatisArchive      `json:"archive,omitempty"`
+	Archive                *SatisArchive     `json:"archive,omitempty"`
 	Comment                string            `json:"_comment,omitempty"`
-	Config                 SatisConfig       `json:"config,omitempty"`
+	Config                 *SatisConfig      `json:"config,omitempty"`
 	Description            string            `json:"description,omitempty"`
 	Homepage               string            `json:"homepage"`
 	IncludeFilename        string            `json:"include-filename,omitempty"`
