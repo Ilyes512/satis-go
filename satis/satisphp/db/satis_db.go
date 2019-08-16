@@ -31,7 +31,7 @@ type SatisArchive struct {
 	AbsoluteDirectory string   `json:"absolute-directory,omitempty"`
 	Blacklist         []string `json:"blacklist,omitempty"`
 	Checksum          bool     `json:"checksum,omitempty"`
-	Directory         string   `json:"directory"`
+	Directory         string   `json:"directory,omitempty"`
 	Format            string   `json:"format,omitempty"`
 	IgnoreFilters     bool     `json:"ignore-filters,omitempty"`
 	PrefixURL         string   `json:"prefix-url,omitempty"`
@@ -40,30 +40,44 @@ type SatisArchive struct {
 }
 
 type SatisConfig struct {
-	AutoloaderSuffix      string                 `json:"autoloader-suffix,omitempty"`
-	BinCompat             string                 `json:"bin-compat,omitempty"`
+	ProcessTimeout        int                    `json:"process-timeout,omitempty"`
+	UseIncludePath        bool                   `json:"use-include-path,omitempty"`
+	PreferredInstall      string                 `json:"preferred-install,omitempty"`
+	StoreAuths            bool                   `json:"store-auths,omitempty"`
+	GithubProtocols       []string               `json:"github-protocols,omitempty"`
+	GithubOauth           map[string]interface{} `json:"github-oauth,omitempty"`
+	GitlabOauth           map[string]interface{} `json:"gitlab-oauth,omitempty"`
+	GitlabToken           map[string]interface{} `json:"gitlab-token,omitempty"`
+	DisableTLS            bool                   `json:"disable-tls,omitempty"`
+	SecureHTTP            bool                   `json:"secure-http,omitempty"`
+	BitbucketOauth        map[string]interface{} `json:"bitbucket-oauth-oauth,omitempty"`
+	Cafile                string                 `json:"cafile,omitempty"`
+	Capath                string                 `json:"capath,omitempty"`
+	HTTPBasic             map[string]interface{} `json:"http-basic,omitempty"`
+	Platform              map[string]interface{} `json:"platform,omitempty"`
+	VendorDir             string                 `json:"vendor-dir,omitempty"`
 	BinDir                string                 `json:"bin-dir,omitempty"`
+	DataDir               string                 `json:"data-dir,omitempty"`
 	CacheDir              string                 `json:"cache-dir,omitempty"`
 	CacheFilesDir         string                 `json:"cache-files-dir,omitempty"`
-	CacheFilesMaxsize     string                 `json:"cache-files-maxsize,omitempty"`
-	CacheFilesTTL         int                    `json:"cache-files-ttl,omitempty"`
 	CacheRepoDir          string                 `json:"cache-repo-dir,omitempty"`
-	CacheTTL              int                    `json:"cache-ttl,omitempty"`
 	CacheVcsDir           string                 `json:"cache-vcs-dir,omitempty"`
+	CacheFilesTTL         int                    `json:"cache-files-ttl,omitempty"`
+	CacheFilesMaxsize     string                 `json:"cache-files-maxsize,omitempty"`
+	BinCompat             string                 `json:"bin-compat,omitempty"`
+	PrependAutoloader     bool                   `json:"prepend-autoloader,omitempty"`
+	AutoloaderSuffix      string                 `json:"autoloader-suffix,omitempty"`
+	OptimizeAutoloader    bool                   `json:"optimize-autoloader,omitempty"`
+	SortPackages          bool                   `json:"sort-packages,omitempty"`
 	ClassmapAuthoritative bool                   `json:"classmap-authoritative,omitempty"`
-	DiscardChanges        bool                   `json:"discard-changes,omitempty"`
+	ApcuAutoloader        bool                   `json:"apcu-autoloader,omitempty"`
 	GithubDomains         []string               `json:"github-domains,omitempty"`
 	GithubExposeHostname  bool                   `json:"github-expose-hostname,omitempty"`
-	GithubOauth           map[string]interface{} `json:"github-oauth,omitempty"`
-	GithubProtocols       []string               `json:"github-protocols,omitempty"`
-	HTTPBasic             map[string]interface{} `json:"http-basic,omitempty"`
+	GitlabDomains         []string               `json:"gitlab-domains,omitempty"`
+	UseGithubAPI          bool                   `json:"use-github-api,omitempty"`
 	NotifyOnInstall       bool                   `json:"notify-on-install,omitempty"`
-	OptimizeAutoloader    bool                   `json:"optimize-autoloader,omitempty"`
-	Platform              map[string]interface{} `json:"platform,omitempty"`
-	PreferredInstall      string                 `json:"preferred-install,omitempty"`
-	PrependAutoloader     bool                   `json:"prepend-autoloader,omitempty"`
-	ProcessTimeout        int                    `json:"process-timeout,omitempty"`
-	StoreAuths            bool                   `json:"store-auths,omitempty"`
-	UseIncludePath        bool                   `json:"use-include-path,omitempty"`
-	VendorDir             string                 `json:"vendor-dir,omitempty"`
+	DiscardChanges        bool                   `json:"discard-changes,omitempty"`
+	ArchiveFormat         string                 `json:"archive-format,omitempty"`
+	ArchiveDir            string                 `json:"archive-dir,omitempty"`
+	HtaccessProtect       bool                   `json:"htaccess-protect,omitempty"`
 }
