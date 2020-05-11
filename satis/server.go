@@ -106,8 +106,11 @@ func (s *Server) initDb() error {
 	if err := dbMgr.Load(); err != nil {
 		return err
 	}
+
+	boolPointer := func(b bool) *bool { return &b }
+
 	dbMgr.Db.Name = s.Name
 	dbMgr.Db.Homepage = s.Homepage
-	dbMgr.Db.RequireAll = true
+	dbMgr.Db.RequireAll = boolPointer(true)
 	return dbMgr.Write()
 }
