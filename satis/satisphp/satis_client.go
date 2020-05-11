@@ -3,8 +3,8 @@ package satisphp
 import (
 	"errors"
 
-	"github.com/benschw/satis-go/satis/satisphp/api"
-	"github.com/benschw/satis-go/satis/satisphp/job"
+	"github.com/Ilyes512/satis-go/satis/satisphp/api"
+	"github.com/Ilyes512/satis-go/satis/satisphp/job"
 )
 
 var ErrRepoNotFound = errors.New("Repository Not Found")

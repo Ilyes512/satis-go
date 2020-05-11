@@ -8,7 +8,7 @@ import (
 	"log"
 	"os"
 
-	"github.com/benschw/satis-go/satis"
+	"github.com/Ilyes512/satis-go/satis"
 	yaml "gopkg.in/yaml.v2"
 )
 

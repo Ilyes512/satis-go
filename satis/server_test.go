@@ -10,9 +10,9 @@ import (
 	"testing"
 	"time"
 
-	"github.com/benschw/satis-go/satis/client"
-	"github.com/benschw/satis-go/satis/satisphp/api"
-	"github.com/benschw/satis-go/satis/satisphp/db"
+	"github.com/Ilyes512/satis-go/satis/client"
+	"github.com/Ilyes512/satis-go/satis/satisphp/api"
+	"github.com/Ilyes512/satis-go/satis/satisphp/db"
 	. "gopkg.in/check.v1"
 )
 

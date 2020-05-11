@@ -3,8 +3,8 @@ package satisphp
 import (
 	"log"
 
-	"github.com/benschw/satis-go/satis/satisphp/db"
-	"github.com/benschw/satis-go/satis/satisphp/job"
+	"github.com/Ilyes512/satis-go/satis/satisphp/db"
+	"github.com/Ilyes512/satis-go/satis/satisphp/job"
 )
 
 type SatisJobProcessor struct {

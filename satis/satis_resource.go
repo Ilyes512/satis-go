@@ -6,8 +6,8 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/benschw/satis-go/satis/satisphp"
-	"github.com/benschw/satis-go/satis/satisphp/api"
+	"github.com/Ilyes512/satis-go/satis/satisphp"
+	"github.com/Ilyes512/satis-go/satis/satisphp/api"
 	"github.com/gorilla/mux"
 )
 

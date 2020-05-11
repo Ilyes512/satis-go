@@ -4,7 +4,7 @@ import (
 	"log"
 	"os/exec"
 
-	"github.com/benschw/satis-go/satis/satisphp/db"
+	"github.com/Ilyes512/satis-go/satis/satisphp/db"
 )
 
 type Generator interface {

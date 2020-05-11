@@ -1,8 +1,8 @@
 package job
 
 import (
-	"github.com/benschw/satis-go/satis/satisphp/api"
-	"github.com/benschw/satis-go/satis/satisphp/db"
+	"github.com/Ilyes512/satis-go/satis/satisphp/api"
+	"github.com/Ilyes512/satis-go/satis/satisphp/db"
 )
 
 // Add or save a repo tp the repo collection
